@@ -15,5 +15,4 @@ Copyright 2013 Finn Grimpe
 
 
 Credits to OwnedCore for the info dump thread
-
 Credits to Shynd for creating BlackMagic
