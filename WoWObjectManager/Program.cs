@@ -34,17 +34,17 @@ namespace WoWObjectManager
                 return;
             }
 
-            PlayerObject PlayerObject = Manager.PlayerObjectList[TargetGUID]; //This is from the cache
+            NPCObject NPCObject = Manager.PlayerObjectList[TargetGUID]; //This is from the cache
 
-            Console.WriteLine(string.Format("[Target] GUID: {0} - X: {1} Y: {2} Z: {3}", PlayerObject.GUID, PlayerObject.Position.X, PlayerObject.Position.Y, PlayerObject.Position.Z));
+            Console.WriteLine(string.Format("[Target] GUID: {0} - X: {1} Y: {2} Z: {3}", NPCObject.GUID, NPCObject.Position.X, NPCObject.Position.Y, NPCObject.Position.Z));
         }
 
         internal static void GetAllNPCs()
         {
             foreach (ulong GUID in Manager.PlayerObjectList.Keys)
             {
-                PlayerObject PlayerObject = Manager.PlayerObjectList[GUID];
-                Console.WriteLine(string.Format("[NPC] GUID: {0} - X: {1} Y: {2} Z: {3}", PlayerObject.GUID, PlayerObject.Position.X, PlayerObject.Position.Y, PlayerObject.Position.Z));
+                NPCObject NPCObject = Manager.PlayerObjectList[GUID];
+                Console.WriteLine(string.Format("[NPC] GUID: {0} - X: {1} Y: {2} Z: {3}", NPCObject.GUID, NPCObject.Position.X, NPCObject.Position.Y, NPCObject.Position.Z));
             }
         }
     }

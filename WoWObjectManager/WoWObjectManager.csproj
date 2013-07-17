@@ -51,6 +51,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ObjectManager\Manager.cs" />
+    <Compile Include="ObjectManager\NPCObject.cs" />
     <Compile Include="ObjectManager\PlayerObject.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

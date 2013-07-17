@@ -6,11 +6,11 @@ using System.Text;
 
 namespace WoWObjectManager
 {
-    class PlayerObject
+    class NPCObject
     {
         internal uint BaseAddr;
 
-        public PlayerObject(uint baseAddr)
+        public NPCObject(uint baseAddr)
         {
             BaseAddr = baseAddr;
         }

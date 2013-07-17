@@ -11,7 +11,7 @@ namespace WoWObjectManager
     {
         internal static BlackMagic WoW;
 
-        internal static IDictionary<ulong, PlayerObject> PlayerObjectList = new Dictionary<ulong, PlayerObject>();
+        internal static IDictionary<ulong, NPCObject> PlayerObjectList = new Dictionary<ulong, NPCObject>();
 
         internal static uint ObjMgr, CurObj, NextObj;
 
@@ -35,7 +35,7 @@ namespace WoWObjectManager
 
         internal static void Initialize()
         {
-            WoW = new BlackMagic(8656); //EDIT THIS WITH THE WOW PID.
+            WoW = new BlackMagic(0000); //EDIT THIS WITH THE WOW PID.
 
             ObjMgr = WoW.ReadUInt(WoW.ReadUInt((uint) WoW.MainModule.BaseAddress + (uint)Offsets.clientConnection) + (uint)Offsets.ObjectManager);
             CurObj = WoW.ReadUInt(ObjMgr + (Int32)Offsets.FirstObject);
@@ -67,12 +67,12 @@ namespace WoWObjectManager
                 uint NextObj = WoW.ReadUInt((UInt32)CurObj + (Int32)Offsets.NextObject);
 
                 //I hate switches.
-                if (ObjectType == 3) //NPC
+                if (ObjectType == 3) //NPCs
                 {
-                    PlayerObject PlayerObject = new PlayerObject(CurObj);
-                    Console.WriteLine(string.Format("[NPC] GUID: {0} - X: {1} Y: {2} Z: {3} Name: {4}", PlayerObject.GUID, PlayerObject.Position.X, PlayerObject.Position.Y, PlayerObject.Position.Z, PlayerObject.Name));
+                    NPCObject NPCObject = new NPCObject(CurObj);
+                    Console.WriteLine(string.Format("[NPC] GUID: {0} - X: {1} Y: {2} Z: {3} Name: {4}", NPCObject.GUID, NPCObject.Position.X, NPCObject.Position.Y, NPCObject.Position.Z, NPCObject.Name));
 
-                    PlayerObjectList.Add(PlayerObject.GUID, PlayerObject);
+                    PlayerObjectList.Add(NPCObject.GUID, NPCObject);
                 }
 
                 CurObj = NextObj;
