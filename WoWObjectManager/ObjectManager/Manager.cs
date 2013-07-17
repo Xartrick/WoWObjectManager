@@ -29,11 +29,13 @@ namespace WoWObjectManager
             Object_X = 0x7F8,
             Object_Y = Object_X + 0x4,
             Object_Z = Object_Y + 0x4,
+            Object_NamePointer = 0x974,
+            Object_NameOffset = 0x6C,
         }
 
         internal static void Initialize()
         {
-            WoW = new BlackMagic(); //EDIT THIS!!!
+            WoW = new BlackMagic(8656); //EDIT THIS WITH THE WOW PID.
 
             ObjMgr = WoW.ReadUInt(WoW.ReadUInt((uint) WoW.MainModule.BaseAddress + (uint)Offsets.clientConnection) + (uint)Offsets.ObjectManager);
             CurObj = WoW.ReadUInt(ObjMgr + (Int32)Offsets.FirstObject);
@@ -68,15 +70,13 @@ namespace WoWObjectManager
                 if (ObjectType == 3) //NPC
                 {
                     PlayerObject PlayerObject = new PlayerObject(CurObj);
-                    Console.WriteLine(string.Format("[NPC] GUID: {0} - X: {1} Y: {2} Z: {3}", PlayerObject.GUID, PlayerObject.Position.X, PlayerObject.Position.Y, PlayerObject.Position.Z));
+                    Console.WriteLine(string.Format("[NPC] GUID: {0} - X: {1} Y: {2} Z: {3} Name: {4}", PlayerObject.GUID, PlayerObject.Position.X, PlayerObject.Position.Y, PlayerObject.Position.Z, PlayerObject.Name));
 
                     PlayerObjectList.Add(PlayerObject.GUID, PlayerObject);
                 }
 
                 CurObj = NextObj;
             }
-
-            Console.WriteLine("Stahp.");
         }
     }
 }

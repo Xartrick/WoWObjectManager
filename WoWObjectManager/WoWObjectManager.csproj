@@ -35,9 +35,8 @@
     <Reference Include="BlackMagic">
       <HintPath>D:\Folder\Visual Studio 2012\Projects\Zeenox\Zeenox\bin\Debug\BlackMagic.dll</HintPath>
     </Reference>
-    <Reference Include="fasmdll_managed, Version=1.0.4514.37524, Culture=neutral, processorArchitecture=x86">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Documents\Visual Studio 2012\Projects\EloBuddy\EloBuddy\bin\Debug\fasmdll_managed.dll</HintPath>
+    <Reference Include="fasmdll_managed">
+      <HintPath>..\..\..\..\Desktop\fasmdll_managed.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Xna.Framework">
       <HintPath>D:\Folder\Visual Studio 2012\Projects\Zeenox\Zeenox\bin\Debug\Microsoft.Xna.Framework.dll</HintPath>

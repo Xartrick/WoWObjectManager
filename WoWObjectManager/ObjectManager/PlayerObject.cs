@@ -34,6 +34,14 @@ namespace WoWObjectManager
                     );
             }
         }
+
+        internal string Name
+        {
+            get
+            {
+                return Manager.WoW.ReadASCIIString(Manager.WoW.ReadUInt(Manager.WoW.ReadUInt(BaseAddr + (Int32)Manager.Offsets.Object_NamePointer) + (Int32) Manager.Offsets.Object_NameOffset), 100);
+            }
+        }
     }
 
 }
