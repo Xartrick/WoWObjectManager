@@ -1,7 +1,7 @@
 WoWObjectManager
 ================
 
-Objectmanager for World of Warcraft.
+ObjectManager for World of Warcraft patch 5.3.0 17055.
 
 
 Requirements
@@ -12,5 +12,5 @@ Requirements
 Credits
 ================
 
-* OwnedCore for the info dump thread
+* OwnedCore for the info dump threads
 * Shynd for creating BlackMagic
