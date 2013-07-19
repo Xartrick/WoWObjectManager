@@ -41,8 +41,14 @@ namespace WoWObjectManager
         /// </summary>
         internal static uint PlayerBaseAddr { get; set; }
 
+        /// <summary>
+        /// Returns whether the ObjectManager is initialized or not
+        /// </summary>
         internal static bool Initialized { get; set; }
 
+        /// <summary>
+        /// Initialize the ObjectManager and attaches BlackMagic to the processId.
+        /// </summary>
         internal static void Initialize()
         {
             if (Initialized)
@@ -66,6 +72,9 @@ namespace WoWObjectManager
             }
         }
 
+        /// <summary>
+        /// Pulses the Objectmanager and refreshes every object it currently holds
+        /// </summary>
         internal static void Pulse()
         {
             if (!Initialized)
