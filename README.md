@@ -8,7 +8,6 @@ Requirements
 ================
 
 * BlackMagic
-* Microsoft XNA Framework (only using this because of the Vector3 class, pretty stupid. Im changing this later)
 
 Credits
 ================
