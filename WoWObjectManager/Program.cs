@@ -26,36 +26,33 @@ namespace WoWObjectManager
             Console.WriteLine(string.Format("AreaId: {0}", Objects.WoWPlayerMe.AreaId));
             Console.WriteLine(string.Format("ZoneText: {0}; SubZoneText: {1}", Objects.WoWPlayerMe.ZoneText, Objects.WoWPlayerMe.SubZoneText));
             Console.WriteLine(string.Format("Hey {0}!\r\nHP: {1}/{2} Mana: {8}/{9} \r\nX: {3} Y: {4} Z: {5}\r\nClass: {6}\r\nLevel: {7}", Objects.WoWPlayerMe.Name, Objects.WoWPlayerMe.BaseHealth, Objects.WoWPlayerMe.MaxHealth, Objects.WoWPlayerMe.Position.X, Objects.WoWPlayerMe.Position.Y, Objects.WoWPlayerMe.Position.Z, Objects.WoWPlayerMe.Class, Objects.WoWPlayerMe.Level, Objects.WoWPlayerMe.BasePower, Objects.WoWPlayerMe.MaxPower));
+
+            ExampleGetTargetData();
+            
             Console.Read();
         }
 
-        internal static void GetTargetXPosition()
+        /// <summary>
+        /// Example of how to get data about the players target.
+        /// </summary>
+        internal static void ExampleGetTargetData()
         {
-            UInt64 TargetGUID = Manager.WoW.ReadUInt64((uint) Manager.WoW.MainModule.BaseAddress + (Int32) 0xCDC878);
+            ulong TargetGUID = Objects.WoWPlayerMe.TargetGUID;
 
             if (TargetGUID == 0)
             {
-                Console.WriteLine("Put a NPC in your target first!");
+                Console.WriteLine("Put a WoWUnit (NPC/Monster) in your target first!");
                 return;
             }
             if (!Manager.WoWUnitList.ContainsKey(TargetGUID))
             {
-                Console.WriteLine("Invalid NPC");
+                Console.WriteLine("Invalid WoWUnit.");
                 return;
             }
 
-            WoWUnit NPCObject = Manager.WoWUnitList[TargetGUID]; //This is from the cache
-
-            Console.WriteLine(string.Format("[Target] GUID: {0} - X: {1} Y: {2} Z: {3}", NPCObject.GUID, NPCObject.Position.X, NPCObject.Position.Y, NPCObject.Position.Z));
-        }
-
-        internal static void GetAllNPCs()
-        {
-            foreach (ulong GUID in Manager.WoWUnitList.Keys)
-            {
-                WoWUnit NPCObject = Manager.WoWUnitList[GUID];
-                Console.WriteLine(string.Format("[NPC] GUID: {0} - X: {1} Y: {2} Z: {3}", NPCObject.GUID, NPCObject.Position.X, NPCObject.Position.Y, NPCObject.Position.Z));
-            }
+            WoWUnit WoWUnit = Manager.WoWUnitList[TargetGUID];
+            Console.WriteLine(string.Format("[Target] GUID: {0} - X: {1} Y: {2} Z: {3}\r\nName: {4} \r\nHealth: {5}/{6} Power: {7}/{8} Level: {9}", WoWUnit.GUID, WoWUnit.Position.X, WoWUnit.Position.Y, WoWUnit.Position.Z, WoWUnit.Name, WoWUnit.BaseHealth, WoWUnit.MaxHealth, WoWUnit.BasePower, WoWUnit.MaxPower, WoWUnit.Level));
+            Console.WriteLine(string.Format("DisplayId: {0}", WoWUnit.DisplayId));
         }
     }
 }

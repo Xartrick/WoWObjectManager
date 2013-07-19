@@ -40,6 +40,14 @@ namespace WoWObjectManager.Objects
         }
 
         /// <summary>
+        /// The players GUID
+        /// </summary>
+        internal static ulong TargetGUID
+        {
+            get { return Manager.WoW.ReadUInt64((uint)Manager.WoW.MainModule.BaseAddress + (Int32)Offsets.WoWPlayerMe.TargetGUID); }
+        }
+
+        /// <summary>
         /// Returns the postion as Vector3
         /// </summary>
         internal static Vector3 Position
