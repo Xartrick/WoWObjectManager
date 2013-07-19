@@ -8,56 +8,60 @@
  *
  */
 
-using Microsoft.Xna.Framework;
 using System;
 
-namespace WoWObjectManager.Objects
+namespace WoWObjectManager
 {
     /// <summary>
     /// Repesents the local player
     /// </summary>
     class WoWPlayerMe
     {
-        internal static uint BaseAddr
+        public WoWPlayerMe(uint baseAddr)
         {
-            get { return Manager.PlayerBaseAddr; }
+            BaseAddr = baseAddr;
         }
+
+        /// <summary>
+        /// The players base address
+        /// </summary>
+        internal uint BaseAddr { get; set; }
 
         /// <summary>
         /// The players name
         /// </summary>
-        internal static string Name
+        internal string Name
         {
-            get { return Manager.WoW.ReadASCIIString((uint) Manager.WoW.MainModule.BaseAddress + (Int32) Offsets.WoWPlayerMe.Name, 128); }
+            get { return ObjectManager.WoW.ReadASCIIString((uint) ObjectManager.WoW.MainModule.BaseAddress + (Int32) Offsets.WoWPlayerMe.Name, 128); }
         }
 
         /// <summary>
         /// The players GUID
         /// </summary>
-        internal static ulong GUID
+        internal ulong GUID
         {
-            get { return Manager.PlayerGUID; }
+            get { return ObjectManager.PlayerGUID; }
         }
 
         /// <summary>
         /// The players GUID
         /// </summary>
-        internal static ulong TargetGUID
+        internal ulong TargetGUID
         {
-            get { return Manager.WoW.ReadUInt64((uint)Manager.WoW.MainModule.BaseAddress + (Int32)Offsets.WoWPlayerMe.TargetGUID); }
+            get { return ObjectManager.WoW.ReadUInt64((uint)ObjectManager.WoW.MainModule.BaseAddress + (Int32)Offsets.WoWPlayerMe.TargetGUID); }
         }
 
         /// <summary>
         /// Returns the postion as Vector3
         /// </summary>
-        internal static Vector3 Position
+        internal Vector3 Position
         {
             get
             {
                 return new Vector3(
-                    Manager.WoW.ReadFloat(BaseAddr + (Int32)Offsets.WoWUnit.X),
-                    Manager.WoW.ReadFloat(BaseAddr + (Int32)Offsets.WoWUnit.Y),
-                    Manager.WoW.ReadFloat(BaseAddr + (Int32)Offsets.WoWUnit.Z)
+                    ObjectManager.WoW.ReadFloat(BaseAddr + (Int32)Offsets.WoWUnit.X),
+                    ObjectManager.WoW.ReadFloat(BaseAddr + (Int32)Offsets.WoWUnit.Y),
+                    ObjectManager.WoW.ReadFloat(BaseAddr + (Int32)Offsets.WoWUnit.Z)
                     );
             }
         }
@@ -65,98 +69,98 @@ namespace WoWObjectManager.Objects
         /// <summary>
         /// The continendid on which the player currently is
         /// </summary>
-        internal static int ContinentId
+        internal int ContinentId
         {
-            get {return Manager.WoW.ReadInt((uint)Manager.WoW.MainModule.BaseAddress + (Int32) Offsets.WoWPlayerMe.ContinentId); }
+            get {return ObjectManager.WoW.ReadInt((uint)ObjectManager.WoW.MainModule.BaseAddress + (Int32) Offsets.WoWPlayerMe.ContinentId); }
         }
 
         /// <summary>
         /// The areaid on which the player currently is
         /// </summary>
-        internal static int AreaId
+        internal int AreaId
         {
-            get { return Manager.WoW.ReadInt((uint)Manager.WoW.MainModule.BaseAddress + (Int32) Offsets.WoWPlayerMe.AreaId); }
+            get { return ObjectManager.WoW.ReadInt((uint)ObjectManager.WoW.MainModule.BaseAddress + (Int32) Offsets.WoWPlayerMe.AreaId); }
         }
 
         /// <summary>
         /// 
         /// </summary>
-        internal static string ZoneText
+        internal string ZoneText
         {
-            get { return Manager.WoW.ReadASCIIString(Manager.WoW.ReadUInt((uint)Manager.WoW.MainModule.BaseAddress + (Int32)Offsets.WoWPlayerMe.ZoneText), 128); }
+            get { return ObjectManager.WoW.ReadASCIIString(ObjectManager.WoW.ReadUInt((uint)ObjectManager.WoW.MainModule.BaseAddress + (Int32)Offsets.WoWPlayerMe.ZoneText), 128); }
         }
 
         /// <summary>
         /// 
         /// </summary>
-        internal static string SubZoneText
+        internal string SubZoneText
         {
-            get { return Manager.WoW.ReadASCIIString(Manager.WoW.ReadUInt((uint)Manager.WoW.MainModule.BaseAddress + (Int32)Offsets.WoWPlayerMe.SubZoneText), 128); }
+            get { return ObjectManager.WoW.ReadASCIIString(ObjectManager.WoW.ReadUInt((uint)ObjectManager.WoW.MainModule.BaseAddress + (Int32)Offsets.WoWPlayerMe.SubZoneText), 128); }
         }
 
         /// <summary>
         /// The players base health
         /// </summary>
-        internal static float BaseHealth
+        internal float BaseHealth
         {
-            get { return Manager.WoW.ReadInt(Manager.WoW.ReadUInt((uint)BaseAddr + (Int32)Offsets.Descriptors.Descriptor) + (Int32)Offsets.Descriptors.BaseHealth); }
+            get { return ObjectManager.WoW.ReadInt(ObjectManager.WoW.ReadUInt((uint)BaseAddr + (Int32)Offsets.Descriptors.Descriptor) + (Int32)Offsets.Descriptors.BaseHealth); }
         }
 
         /// <summary>
         /// The players max health
         /// </summary>
-        internal static float MaxHealth
+        internal float MaxHealth
         {
-            get { return Manager.WoW.ReadInt(Manager.WoW.ReadUInt((uint)BaseAddr + (Int32)Offsets.Descriptors.Descriptor) + (Int32)Offsets.Descriptors.MaxHealth); }
+            get { return ObjectManager.WoW.ReadInt(ObjectManager.WoW.ReadUInt((uint)BaseAddr + (Int32)Offsets.Descriptors.Descriptor) + (Int32)Offsets.Descriptors.MaxHealth); }
         }
 
         /// <summary>
         /// The players combopoints
         /// </summary>
-        internal static int ComboPoints
+        internal int ComboPoints
         {
-            get { return Manager.WoW.ReadInt((uint)Manager.WoW.MainModule.BaseAddress + (Int32)Offsets.WoWPlayerMe.ComboPoints); }
+            get { return ObjectManager.WoW.ReadInt((uint)ObjectManager.WoW.MainModule.BaseAddress + (Int32)Offsets.WoWPlayerMe.ComboPoints); }
         }
 
         /// <summary>
         /// The players class
         /// </summary>
-        internal static WoWClass Class
+        internal WoWClass Class
         {
             get
             {
-                return (WoWClass)Manager.WoW.ReadByte((uint)Manager.WoW.MainModule.BaseAddress + (Int32) Offsets.WoWPlayerMe.PlayerClass);
+                return (WoWClass)ObjectManager.WoW.ReadByte((uint)ObjectManager.WoW.MainModule.BaseAddress + (Int32) Offsets.WoWPlayerMe.PlayerClass);
             }
         }
 
         /// <summary>
         /// The players base power
         /// </summary>
-        internal static float BasePower
+        internal float BasePower
         {
-            get { return Manager.WoW.ReadInt(Manager.WoW.ReadUInt((uint)BaseAddr + (Int32)Offsets.Descriptors.Descriptor) + (Int32)Offsets.Descriptors.BasePower); }
+            get { return ObjectManager.WoW.ReadInt(ObjectManager.WoW.ReadUInt((uint)BaseAddr + (Int32)Offsets.Descriptors.Descriptor) + (Int32)Offsets.Descriptors.BasePower); }
         }
 
         /// <summary>
         /// The players max power
         /// </summary>
-        internal static float MaxPower
+        internal float MaxPower
         {
-            get { return Manager.WoW.ReadInt(Manager.WoW.ReadUInt((uint)BaseAddr + (Int32)Offsets.Descriptors.Descriptor) + (Int32)Offsets.Descriptors.MaxPower); }
+            get { return ObjectManager.WoW.ReadInt(ObjectManager.WoW.ReadUInt((uint)BaseAddr + (Int32)Offsets.Descriptors.Descriptor) + (Int32)Offsets.Descriptors.MaxPower); }
         }
 
         /// <summary>
         /// The players level
         /// </summary>
-        internal static float Level
+        internal float Level
         {
-            get { return Manager.WoW.ReadInt(Manager.WoW.ReadUInt((uint)BaseAddr + (Int32)Offsets.Descriptors.Descriptor) + (Int32)Offsets.Descriptors.Level); }
+            get { return ObjectManager.WoW.ReadInt(ObjectManager.WoW.ReadUInt((uint)BaseAddr + (Int32)Offsets.Descriptors.Descriptor) + (Int32)Offsets.Descriptors.Level); }
         }
 
         /// <summary>
         /// Returns whether the player is alive or not.
         /// </summary>
-        internal static bool IsAlive
+        internal bool IsAlive
         {
             get
             {

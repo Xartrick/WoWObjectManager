@@ -87,4 +87,18 @@ namespace WoWObjectManager
         Warlock = 9,
         Druid = 11,
     }
+
+    public class Vector3
+    {
+        internal float X { get; set; }
+        internal float Y { get; set; }
+        internal float Z { get; set; }
+
+        public Vector3(float X, float Y, float Z)
+        {
+            this.X = X;
+            this.Y = Y;
+            this.Z = Z;
+        }
+    }
 }

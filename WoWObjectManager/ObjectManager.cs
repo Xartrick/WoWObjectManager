@@ -10,11 +10,13 @@
 
 using Magic;
 using System;
+using System.Linq;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace WoWObjectManager
 {
-    class Manager
+    class ObjectManager
     {
         /// <summary>
         /// BlackMagic instance.
@@ -37,9 +39,9 @@ namespace WoWObjectManager
         internal static ulong PlayerGUID { get; set; }
 
         /// <summary>
-        /// The local's player base address
+        /// The local player object
         /// </summary>
-        internal static uint PlayerBaseAddr { get; set; }
+        internal static WoWPlayerMe Me { get; set; }
 
         /// <summary>
         /// Returns whether the ObjectManager is initialized or not
@@ -56,7 +58,7 @@ namespace WoWObjectManager
 
             try
             {
-                WoW = new BlackMagic(7640);
+                WoW = new BlackMagic((from Process p in Process.GetProcesses() where p.ProcessName == "Wow" select p.Id).First());
                 uint ObjMgr = WoW.ReadUInt(WoW.ReadUInt((uint)WoW.MainModule.BaseAddress + (uint)Offsets.ObjectManager.clientConnection) + (uint)Offsets.ObjectManager.ObjectManager);
                 CurObj = WoW.ReadUInt(ObjMgr + (Int32)Offsets.ObjectManager.FirstObject);
 
@@ -88,6 +90,7 @@ namespace WoWObjectManager
                 /*
                  * 1. Items
                  * 2. Players
+                 * 3. NPCS / Monsters
                  * 4. Containers
                  * 5. Corpses
                  * 6. Game Objects
@@ -98,16 +101,16 @@ namespace WoWObjectManager
                 uint NextObj = WoW.ReadUInt(CurObj + (Int32)Offsets.ObjectManager.NextObject);
                 ulong GUID = WoW.ReadUInt64(CurObj + (Int32)Offsets.WoWObject.GUID);
 
-                if (GUID == PlayerGUID) //No clue how to do that in a different way. Appreciate helpt.
-                    PlayerBaseAddr = CurObj;
+                if (GUID == PlayerGUID)
+                    Me = new WoWPlayerMe(CurObj);
 
-                //I hate switches.
-                if (ObjectType == 3) //NPCs
+                switch (ObjectType)
                 {
-                    WoWUnit WoWUnit = new WoWUnit(CurObj);
-                    Console.WriteLine(string.Format("[WoWUnit] GUID: {0} - X: {1} Y: {2} Z: {3}\r\nName: {4} \r\nHealth: {5}/{6} Power: {7}/{8} Level: {9}", WoWUnit.GUID, WoWUnit.Position.X, WoWUnit.Position.Y, WoWUnit.Position.Z, WoWUnit.Name, WoWUnit.BaseHealth, WoWUnit.MaxHealth, WoWUnit.BasePower, WoWUnit.MaxPower, WoWUnit.Level));
-
-                    WoWUnitList.Add(WoWUnit.GUID, WoWUnit);
+                    case 3:
+                        WoWUnit WoWUnit = new WoWUnit(CurObj);
+                        Console.WriteLine(string.Format("[WoWUnit] GUID: {0} - X: {1} Y: {2} Z: {3}\r\nName: {4} \r\nHealth: {5}/{6} Power: {7}/{8} Level: {9}", WoWUnit.GUID, WoWUnit.Position.X, WoWUnit.Position.Y, WoWUnit.Position.Z, WoWUnit.Name, WoWUnit.BaseHealth, WoWUnit.MaxHealth, WoWUnit.BasePower, WoWUnit.MaxPower, WoWUnit.Level));
+                        WoWUnitList.Add(WoWUnit.GUID, WoWUnit);
+                        break;
                 }
 
                 CurObj = NextObj;
