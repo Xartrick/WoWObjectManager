@@ -19,6 +19,9 @@ namespace WoWObjectManager
     {
         public WoWPlayerMe(uint baseAddr)
         {
+            if (BaseAddr == baseAddr)
+                return;
+
             BaseAddr = baseAddr;
         }
 
