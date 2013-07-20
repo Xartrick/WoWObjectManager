@@ -48,6 +48,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ObjectManager.cs" />
+    <Compile Include="Objects\WoWObject.cs" />
     <Compile Include="Objects\WoWPlayerMe.cs" />
     <Compile Include="Objects\WoWUnit.cs" />
     <Compile Include="Offsets.cs" />

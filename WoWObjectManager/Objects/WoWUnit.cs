@@ -15,14 +15,14 @@ namespace WoWObjectManager
     /// <summary>
     /// An unit, for example an NPC.
     /// </summary>
-    class WoWUnit
+    class WoWUnit : WoWObject
     {
 
         /// <summary>
         /// Initiates a new of the WoWUnit object.
         /// </summary>
         /// <param name="baseAddr">The units base address.</param>
-        public WoWUnit(uint baseAddr)
+        public WoWUnit(uint baseAddr) : base(baseAddr)
         {
             BaseAddr = baseAddr;
         }
@@ -31,14 +31,6 @@ namespace WoWObjectManager
         /// The units base address
         /// </summary>
         internal uint BaseAddr { get; set; }
-
-        /// <summary>
-        /// Returns the GUID
-        /// </summary>
-        internal UInt64 GUID
-        {
-            get { return ObjectManager.WoW.ReadUInt64(BaseAddr + (Int32) Offsets.WoWObject.GUID); }
-        }
 
         /// <summary>
         /// Returns the postion as Vector3.

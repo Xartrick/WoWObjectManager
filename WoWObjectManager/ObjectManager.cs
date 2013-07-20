@@ -97,19 +97,18 @@ namespace WoWObjectManager
                  * 7. Dynamic Objects
                  */
 
-                uint ObjectType = WoW.ReadUInt(CurObj + (Int32) Offsets.WoWObject.Type);
+                WoWObject obj = new WoWObject(CurObj);
                 uint NextObj = WoW.ReadUInt(CurObj + (Int32)Offsets.ObjectManager.NextObject);
-                ulong GUID = WoW.ReadUInt64(CurObj + (Int32)Offsets.WoWObject.GUID);
 
-                if (GUID == PlayerGUID)
+                if (obj.Guid == PlayerGUID)
                     Me = new WoWPlayerMe(CurObj);
 
-                switch (ObjectType)
+                switch (obj.Type)
                 {
                     case 3:
                         WoWUnit WoWUnit = new WoWUnit(CurObj);
-                        Console.WriteLine(string.Format("[WoWUnit] GUID: {0} - X: {1} Y: {2} Z: {3}\r\nName: {4} \r\nHealth: {5}/{6} Power: {7}/{8} Level: {9}", WoWUnit.GUID, WoWUnit.Position.X, WoWUnit.Position.Y, WoWUnit.Position.Z, WoWUnit.Name, WoWUnit.BaseHealth, WoWUnit.MaxHealth, WoWUnit.BasePower, WoWUnit.MaxPower, WoWUnit.Level));
-                        WoWUnitList.Add(WoWUnit.GUID, WoWUnit);
+                        Console.WriteLine(string.Format("[WoWUnit] GUID: {0} - X: {1} Y: {2} Z: {3}\r\nName: {4} \r\nHealth: {5}/{6} Power: {7}/{8} Level: {9}", WoWUnit.Guid, WoWUnit.Position.X, WoWUnit.Position.Y, WoWUnit.Position.Z, WoWUnit.Name, WoWUnit.BaseHealth, WoWUnit.MaxHealth, WoWUnit.BasePower, WoWUnit.MaxPower, WoWUnit.Level));
+                        WoWUnitList.Add(WoWUnit.Guid, WoWUnit);
                         break;
                 }
 
